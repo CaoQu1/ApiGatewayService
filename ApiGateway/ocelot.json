@@ -1,0 +1,131 @@
+{
+  "GlobalConfiguration": {
+    //外部访问路径
+    "BaseUrl": "http://localhost:44310",
+    //限速配置
+    "RateLimitOptions": {
+      //白名单
+      "ClientWhitelist": [],
+      "EnableRateLimiting": true,
+      "HttpStatusCode": 999,
+      //限制
+      "Limit": 1,
+      //限制时间段，例如1s，5m，1h，1d
+      "Period": "1s",
+      //重试等待的时间间隔（秒）
+      "PeriodTimespan": 1,
+      //自定义消息
+      "QuotaExceededMessage": "单位时间内请求次数超过限制！"
+    },
+    //熔断配置
+    "QoSOptions": {
+      "ExceptionsAllowedBeforeBreaking": 3,
+      "DurationOfBreak": 5,
+      //超时值(毫秒)
+      "TimeoutValue": 5000
+    }
+  },
+  "ReRoutes": [
+    //API1项目配置
+    {
+      "UpstreamPathTemplate": "/gateway/1/{url}",
+      "UpstreamHttpMethod": [ "Get", "Post", "Delete", "Put" ],
+      "DownstreamPathTemplate": "/api1/{url}",
+      "DownstreamScheme": "https",
+      //"ServiceName": "API1",
+      //"UseServiceDiscovery": false,
+      //"LoadBalancer": "RoundRobin",
+      "DownstreamHostAndPorts": [
+        //{
+        //  "Host": "localhost",
+        //  "Port": 44328
+        //},
+        {
+          "Host": "localhost",
+          "Port": 44328
+        }
+      ],
+      "QoSOptions": {
+        "ExceptionsAllowedBeforeBreaking": 3,
+        "DurationOfBreak": 10,
+        "TimeoutValue": 5000
+      }
+    },
+    //API2项目配置
+    {
+      "UpstreamPathTemplate": "/gateway/2/{url}",
+      "UpstreamHttpMethod": [ "Get", "Post", "Delete", "Put" ],
+      "DownstreamPathTemplate": "/api2/{url}",
+      "DownstreamScheme": "https",
+      //"ServiceName": "API2",
+      //"UseServiceDiscovery": false,
+      //"LoadBalancer": "RoundRobin",
+      "DownstreamHostAndPorts": [
+        //{
+        //  "Host": "localhost",
+        //  "Port": 44389
+        //},
+        {
+          "Host": "localhost",
+          "Port": 44389
+        }
+      ],
+      "QoSOptions": {
+        "ExceptionsAllowedBeforeBreaking": 3,
+        "DurationOfBreak": 10,
+        "TimeoutValue": 5000
+      }
+      //"AuthenticationOptions": {
+      //  "AuthenticationProviderKey": "Bearer",
+      //  "AllowedScopes": [
+      //  ]
+      //}
+    },
+    //swagger API1配置
+    {
+      "DownstreamPathTemplate": "/SwaggerAPI1/swagger.json",
+      "DownstreamScheme": "https",
+      "UpstreamPathTemplate": "/SwaggerAPI1/swagger.json",
+      "UpstreamHttpMethod": [ "GET", "POST", "DELETE", "PUT" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44328
+        },
+        {
+          "Host": "localhost",
+          "Port": 44328
+        }
+      ],
+      "DownstreamHeaderTransform": {
+        "Location": "{DownstreamBaseUrl}, {BaseUrl}"
+      },
+      "HttpHandlerOptions": {
+        "AllowAutoRedirect": false
+      }
+    },
+    //swagger API2配置
+    {
+      "DownstreamPathTemplate": "/SwaggerAPI2/swagger.json",
+      "DownstreamScheme": "https",
+      "UpstreamPathTemplate": "/SwaggerAPI2/swagger.json",
+      "UpstreamHttpMethod": [ "GET", "POST", "DELETE", "PUT" ],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44389
+        },
+        {
+          "Host": "localhost",
+          "Port": 44389
+        }
+      ],
+      "DownstreamHeaderTransform": {
+        "Location": "{DownstreamBaseUrl}, {BaseUrl}"
+      },
+      "HttpHandlerOptions": {
+        "AllowAutoRedirect": false
+      }
+    }
+  ]
+}
