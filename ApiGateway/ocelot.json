@@ -23,6 +23,12 @@
       "DurationOfBreak": 5,
       //≥¨ ±÷µ(∫¡√Î)
       "TimeoutValue": 5000
+    },
+    //∑˛ŒÒ◊¢≤·
+    "ServiceDiscoveryProvider": {
+      "Host": "127.0.0.1",
+      "Port": 8500,
+      "Type": "Consul"
     }
   },
   "ReRoutes": [
@@ -32,14 +38,10 @@
       "UpstreamHttpMethod": [ "Get", "Post", "Delete", "Put" ],
       "DownstreamPathTemplate": "/api1/{url}",
       "DownstreamScheme": "https",
-      //"ServiceName": "API1",
-      //"UseServiceDiscovery": false,
-      //"LoadBalancer": "RoundRobin",
+      "ServiceName": "API1",
+      "UseServiceDiscovery": true,
+      "LoadBalancer": "RoundRobin",
       "DownstreamHostAndPorts": [
-        //{
-        //  "Host": "localhost",
-        //  "Port": 44328
-        //},
         {
           "Host": "localhost",
           "Port": 44328
@@ -57,14 +59,10 @@
       "UpstreamHttpMethod": [ "Get", "Post", "Delete", "Put" ],
       "DownstreamPathTemplate": "/api2/{url}",
       "DownstreamScheme": "https",
-      //"ServiceName": "API2",
-      //"UseServiceDiscovery": false,
-      //"LoadBalancer": "RoundRobin",
+      "ServiceName": "API2",
+      "UseServiceDiscovery": true,
+      "LoadBalancer": "RoundRobin",
       "DownstreamHostAndPorts": [
-        //{
-        //  "Host": "localhost",
-        //  "Port": 44389
-        //},
         {
           "Host": "localhost",
           "Port": 44389
@@ -75,11 +73,6 @@
         "DurationOfBreak": 10,
         "TimeoutValue": 5000
       }
-      //"AuthenticationOptions": {
-      //  "AuthenticationProviderKey": "Bearer",
-      //  "AllowedScopes": [
-      //  ]
-      //}
     },
     //swagger API1≈‰÷√
     {

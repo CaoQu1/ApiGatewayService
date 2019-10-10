@@ -51,7 +51,7 @@ namespace ApiGateway
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IApplicationLifetime lifetime)
         {
             var apis = Configuration["Apis:SwaggerNames"].Split(";").ToList();
             if (env.IsDevelopment())
@@ -76,7 +76,14 @@ namespace ApiGateway
               });
               options.DocumentTitle = "网关";
           });
-
+            //app.RegisterConsul(lifetime, new ServiceEntity
+            //{
+            //    ServiceName = "ocelot",
+            //    ConsulIP = "172.24.107.73",
+            //    ConsulPort = 8500,
+            //    IP = "localhost",
+            //    Port = 44310
+            //});
             app.UseOcelot().Wait();
         }
     }
