@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using ApiGateway;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -40,7 +41,7 @@ namespace ApiService2
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IApplicationLifetime lifetime)
         {
             if (env.IsDevelopment())
             {
@@ -60,6 +61,14 @@ namespace ApiService2
                 c.SwaggerEndpoint("/SwaggerAPI2/swagger.json", "API2");
             });
 
+            app.RegisterConsul(lifetime, new ServiceEntity
+            {
+                ServiceName = "ocelot-api2",
+                ConsulIP = "127.0.0.1",
+                ConsulPort = 8500,
+                IP = "localhost",
+                Port = 44389
+            });
 
             app.UseMvc();
         }

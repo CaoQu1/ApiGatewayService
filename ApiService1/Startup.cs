@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using ApiGateway;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -40,7 +41,7 @@ namespace ApiService1
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IApplicationLifetime lifetime)
         {
             if (env.IsDevelopment())
             {
@@ -58,6 +59,16 @@ namespace ApiService1
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/SwaggerAPI1/swagger.json", "API1");
+            });
+
+
+            app.RegisterConsul(lifetime, new ServiceEntity
+            {
+                ServiceName = "ocelot-api1",
+                ConsulIP = "127.0.0.1",
+                ConsulPort = 8500,
+                IP = "localhost",
+                Port = 44328
             });
 
             app.UseMvc();

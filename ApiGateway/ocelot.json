@@ -38,15 +38,15 @@
       "UpstreamHttpMethod": [ "Get", "Post", "Delete", "Put" ],
       "DownstreamPathTemplate": "/api1/{url}",
       "DownstreamScheme": "https",
-      "ServiceName": "API1",
+      "ServiceName": "ocelot-api1",
       "UseServiceDiscovery": true,
       "LoadBalancer": "RoundRobin",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 44328
-        }
-      ],
+      //"DownstreamHostAndPorts": [
+      //  {
+      //    "Host": "localhost",
+      //    "Port": 44328
+      //  }
+      //],
       "QoSOptions": {
         "ExceptionsAllowedBeforeBreaking": 3,
         "DurationOfBreak": 10,
@@ -59,15 +59,15 @@
       "UpstreamHttpMethod": [ "Get", "Post", "Delete", "Put" ],
       "DownstreamPathTemplate": "/api2/{url}",
       "DownstreamScheme": "https",
-      "ServiceName": "API2",
+      "ServiceName": "ocelot-api2",
       "UseServiceDiscovery": true,
       "LoadBalancer": "RoundRobin",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 44389
-        }
-      ],
+      //"DownstreamHostAndPorts": [
+      //  {
+      //    "Host": "localhost",
+      //    "Port": 44389
+      //  }
+      //],
       "QoSOptions": {
         "ExceptionsAllowedBeforeBreaking": 3,
         "DurationOfBreak": 10,

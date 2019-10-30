@@ -76,14 +76,7 @@ namespace ApiGateway
               });
               options.DocumentTitle = "网关";
           });
-            //app.RegisterConsul(lifetime, new ServiceEntity
-            //{
-            //    ServiceName = "ocelot",
-            //    ConsulIP = "172.24.107.73",
-            //    ConsulPort = 8500,
-            //    IP = "localhost",
-            //    Port = 44310
-            //});
+          
             app.UseOcelot().Wait();
         }
     }
